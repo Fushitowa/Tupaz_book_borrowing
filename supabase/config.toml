@@ -1,0 +1,4 @@
+project_id = "nizel-library"
+
+[functions.manage-librarian]
+verify_jwt = true

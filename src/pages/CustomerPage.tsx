@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { ArrowDownLeft, ArrowUpRight, BookOpen, Search, Shield, Undo2, X } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Search, Shield, Undo2, X } from 'lucide-react'
+import BrandLogo from '../components/BrandLogo'
+import BookCover from '../components/BookCover'
 import { supabase, type Book, type RequestRow } from '../lib'
 import { formatDate } from '../utils/format'
 
@@ -128,9 +130,7 @@ export default function CustomerPage() {
 return <div className="public-app">
   <header className="public-nav">
     <a className="brand" href="#home">
-      <span className="brand-mark">
-        <BookOpen size={21}/>
-      </span>
+      <BrandLogo />
       <span>Nizel <b>Library</b>
       </span>
     </a>
@@ -185,10 +185,7 @@ return <div className="public-app">
             <option key={c.id} value={c.id}>{c.name}</option>)}</select>
         </div>{loading?<div className="empty">Loading the collection…</div>:visibleBooks.length===0?<div className="empty">No available books match your search.</div>:<div className="book-grid">{visibleBooks.map((book,i)=>
           <article className="book-card" key={book.id}>
-            <div className={`book-cover cover-${i%5}`}>{book.cover_url?<img src={book.cover_url} alt=""/>:<>
-                <BookOpen size={24}/>
-                <span>{book.title}</span>
-              </>}</div>
+            <BookCover book={book} variant={i} />
             <div className="book-info">
               <span className="category-label">{book.categories?.name||'Collection'}</span>
               <h3>{book.title}</h3>
@@ -252,9 +249,7 @@ return <div className="public-app">
       </main>
       <footer>
         <a className="brand" href="#home">
-          <span className="brand-mark">
-            <BookOpen size={18}/>
-          </span>Nizel <b>Library</b>
+          <BrandLogo />Nizel <b>Library</b>
         </a>
         <span>Good books. Good neighbors.</span>
         <span>Open to everyone</span>

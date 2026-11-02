@@ -1,9 +1,9 @@
-import { BookOpen } from 'lucide-react'
+import BrandLogo from './BrandLogo'
 
 export default function SetupScreen() {
   return (
     <main className="setup">
-      <div className="brand-mark"><BookOpen /></div>
+      <BrandLogo />
       <p className="eyebrow">NIZEL LIBRARY</p>
       <h1>Connect your library.</h1>
       <p>

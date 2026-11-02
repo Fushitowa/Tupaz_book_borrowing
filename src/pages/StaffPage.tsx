@@ -19,6 +19,8 @@ import {
   Users,
   X,
 } from 'lucide-react'
+import BookCover from '../components/BookCover'
+import BrandLogo from '../components/BrandLogo'
 import RequestTable from '../components/RequestTable'
 import StatCard from '../components/StatCard'
 import { supabase, type Book, type Borrower, type Loan, type RequestRow, type RequestStatus, type ReturnRequest, type Role } from '../lib'
@@ -303,9 +305,7 @@ export default function StaffPage() {
   if (session === undefined) return <div className="login-page">Loading…</div>
   if (!session) return <div className="login-page">
   <a className="brand" href="#">
-    <span className="brand-mark">
-      <BookOpen/>
-    </span>Nizel <b>Library</b>
+    <BrandLogo />Nizel <b>Library</b>
   </a>
   {creatingAdmin ? <form className="login-card" onSubmit={createFirstAdmin}>
     <p className="eyebrow">FIRST-TIME SETUP</p>
@@ -354,9 +354,7 @@ const navigation: Array<{ section: Section; label: string; Icon: LucideIcon }> =
   return <div className="staff-app">
   <aside className="sidebar">
     <a className="brand" href="#">
-      <span className="brand-mark">
-        <BookOpen size={20}/>
-      </span>
+      <BrandLogo />
       <span>Nizel<br/>
         <b>Library</b>
       </span>
@@ -448,36 +446,26 @@ const navigation: Array<{ section: Section; label: string; Icon: LucideIcon }> =
             </label>
             <span className="muted">{books.length} books</span>
           </div>
-          <div className="table-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th>BOOK</th>
-                  <th>CATEGORY</th>
-                  <th>AVAILABILITY</th>
-                  <th>ISBN</th>
-                  {role==='admin'&&<th/>}
-                </tr>
-              </thead>
-              <tbody>{visibleBooks.map(b=>
-                <tr key={b.id}>
-                  <td>
-                    <b>{b.title}</b>
-                    <small>{b.author}</small>
-                  </td>
-                  <td>{b.categories?.name||'—'}</td>
-                  <td>
-                    <span className="availability">
-                      <i className={b.available_copies?'':'low'}/>{b.available_copies} / {b.total_copies} copies</span>
-                  </td>
-                  <td>{b.isbn||'—'}</td>
-                  {role==='admin'&&<td className="row-actions">
-                    <button onClick={()=>setEditingBook(b)}>Edit</button>
-                    <button className="danger-link" onClick={()=>void deleteBook(b)}>Delete</button>
-                  </td>}
-                </tr>)}</tbody>
-            </table>
-          </div>
+          {visibleBooks.length === 0
+            ? <div className="empty books-empty">No books match your search.</div>
+            : <div className="staff-book-grid">
+                {visibleBooks.map((book, index) => <article className="staff-book-card" key={book.id}>
+                  <BookCover book={book} variant={index} />
+                  <div className="staff-book-details">
+                    <span className="staff-book-category">{book.categories?.name || 'Uncategorized'}</span>
+                    <h3>{book.title}</h3>
+                    <p className="staff-book-author">{book.author}</p>
+                    <div className="staff-book-meta">
+                      <span className="availability"><i className={book.available_copies ? '' : 'low'} />{book.available_copies} / {book.total_copies} copies</span>
+                      <span className="staff-book-isbn">ISBN {book.isbn || '—'}</span>
+                    </div>
+                    {role === 'admin' && <div className="staff-book-actions">
+                      <button onClick={() => setEditingBook(book)}>Edit</button>
+                      <button className="danger-link" onClick={() => void deleteBook(book)}>Delete</button>
+                    </div>}
+                  </div>
+                </article>)}
+              </div>}
         </section>}
       {section==='requests'&&<>
         <section className="panel">

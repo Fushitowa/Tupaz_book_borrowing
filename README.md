@@ -4,9 +4,11 @@ Nizel Library is a modern book borrowing management system designed to make libr
 
 ## About the Project
 
-This project was created for my classmates and for use in school projects. It is also a personal learning project that helped me gain hands-on experience in building a full-stack web application, designing user-friendly interfaces, integrating cloud services, and solving practical library management problems.
+I created Nizel Library with one main goal: to help my classmates. As someone who enjoys coding, I know that programming assignments and school projects can be challenging. I wanted to make a useful project that my classmates can learn from, try out, improve, and use for their own ideas.
 
-The project represents my ongoing growth as a developer and demonstrates my ability to plan, develop, document, and deploy a complete software solution.
+This project started as a school project and also became a way for me to gain more experience. While building it, I learned how to work with React and TypeScript, connect a frontend to a Supabase database, manage users and roles, and build features that solve a real problem. I also practiced organizing the project, designing the customer and staff interfaces, and documenting what I built.
+
+I believe that knowledge is more meaningful when it is shared. If this project helps a classmate understand an idea, finish a task, or become more confident in coding, then it has served its purpose. Nizel Library is not only a book borrowing system for me—it is also a record of what I have learned and how I continue to improve as a student and developer.
 
 ## Key Features
 
